@@ -25,6 +25,38 @@ final class SkeletonWriter
     }
 
     /**
+     * Scan a folder for available data mappers
+     * 
+     * @param string $module Module name
+     * @param string $engine Database engine name (MySQL, Memory, etc)
+     * @return array
+     */
+    public function getMappers($module, $engine)
+    {
+        $output = array();
+
+        // Directory path
+        $dirPath = sprintf('%s/%s/Storage/%s', $this->moduleDir, $module, $engine);
+
+        try {
+            $mappers = FileManager::getDirTree($dirPath);
+
+            foreach ($mappers as $file) {
+                $fileName = FileManager::getFileName($file);
+
+                // Mapper's namespace
+                $ns = sprintf('\%s\Storage\%s\%s', $module, $engine, $fileName);
+                $output[$ns] = $fileName;
+            }
+
+            return $output;
+
+        } catch(\RuntimeException $e) {
+            return false;
+        }
+    }
+
+    /**
      * Writes data mapper skeleton file on the disk
      * 
      * @param string $module Module name
