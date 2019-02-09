@@ -8,6 +8,22 @@ use Krystal\Validate\Renderer;
 abstract class AbstractController extends CoreController
 {
     /**
+     * Renders a skeleton
+     * 
+     * @param string $template Skeleton template
+     * @param array $vars Skeleton variables
+     * @return string
+     */
+    final protected function renderSkeleton($template, array $vars = array())
+    {
+        $out = $this->view->disableLayout()
+                          ->setTheme('skeleton')
+                          ->render($template, $vars);
+
+        return '<?php' . PHP_EOL . $out;
+    }
+
+    /**
      * This method automatically gets called when this controller executes
      * 
      * @return void
