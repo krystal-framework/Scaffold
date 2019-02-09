@@ -12,10 +12,21 @@ final class MapperGenerator
      * 
      * @return array
      */
-    public static function getEngines() : array
+    public static function getEngines()
     {
         $stCollection = new StorageCollection();
-        return ArrayUtils::valuefy($stCollection->getAll());
+        return self::valuefy($stCollection->getAll());
+    }
+
+    /**
+     * Valuefy key with corresponding values
+     * 
+     * @param array $values
+     * @return array
+     */
+    public static function valuefy(array $values)
+    {
+        return ArrayUtils::valuefy($values);
     }
 
     /**
@@ -24,11 +35,11 @@ final class MapperGenerator
      * @param array $modules
      * @return array
      */
-    public static function parseModules(array $modules) : array
+    public static function parseModules(array $modules)
     {
         // Remove Scaffold from the list
         $modules = ArrayUtils::unsetByValue($modules, 'Scaffold');
 
-        return ArrayUtils::valuefy($modules);
+        return self::valuefy($modules);
     }
 }
