@@ -10,11 +10,11 @@ final class StorageCollection extends ArrayCollection
      * {@inheritDoc}
      */
     protected $collection = [
-        'MySQL' => 'MySQL',
-        'mSQL' => 'mSQL',
-        'PostgreSQL' => 'PostgreSQL',
-        'Redis' => 'Redis',
-        'Memcached' => 'Memcached',
-        'Memory' => 'Memory'
+        'MySQL',
+        'mSQL',
+        'PostgreSQL',
+        'Redis',
+        'Memcached',
+        'Memory'
     ];
 }
