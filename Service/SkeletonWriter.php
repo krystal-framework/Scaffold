@@ -30,6 +30,7 @@ final class SkeletonWriter
      * @param string $module Module name
      * @param string $engine Database engine name (MySQL, Memory, etc)
      * @param string $mapper Mapper name
+     * @param string $content Skeleton content (i.e genrated PHP code)
      * @return boolean Depending on write success
      */
     public function saveMapper($module, $engine, $mapper, $content)
