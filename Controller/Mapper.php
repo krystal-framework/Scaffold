@@ -11,6 +11,16 @@ use Scaffold\Service\SkeletonWriter;
 final class Mapper extends AbstractController
 {
     /**
+     * Returns current database connection
+     * 
+     * @return mixed
+     */
+    private function getConnection()
+    {
+        return $this->db['mysql'];
+    }
+
+    /**
      * Renders a form
      * 
      * @return string
@@ -24,7 +34,7 @@ final class Mapper extends AbstractController
         return $this->view->render('mapper', array(
             'engines' => MapperGenerator::getEngines(),
             'modules' => MapperGenerator::parseModules($this->moduleManager->getLoadedModuleNames()),
-            'tables' => MapperGenerator::valuefy($this->db['mysql']->fetchAllTables())
+            'tables' => MapperGenerator::valuefy($this->getConnection()->fetchAllTables())
         ));
     }
 
@@ -56,9 +66,16 @@ final class Mapper extends AbstractController
         ));
 
         if ($formValudator->isValid()) {
+            // Try to get a PK out of table
+            $pk = $this->getConnection()->getPrimaryKey($input['table']);
+
+            // Append PK if available
+            if ($pk !== false) {
+                $input['pk'] = $pk;
+            }
 
             $skeleton = $this->renderSkeleton('mapper', $input);
-
+            
             $writer = new SkeletonWriter($this->appConfig->getModulesDir());
             $writer->saveMapper($input['module'], $input['engine'], $input['mapper'], $skeleton);
 
