@@ -57,6 +57,28 @@ final class SkeletonWriter
     }
 
     /**
+     * Writes service skeleton file on the disk
+     * 
+     * @param string $module Module name
+     * @param string $service Service class name (without NS)
+     * @param string $content Skeleton content (i.e genrated PHP code)
+     * @return boolean
+     */
+    public function saveService($module, $service, $content)
+    {
+        $dirPath = sprintf('%s/%s/Service', $this->moduleDir, $module);
+
+        // Create directory if one doesn't exist
+        FileManager::createDir($dirPath);
+
+        // Generate file path
+        $filePath = sprintf('%s/%s.php', $dirPath, $service);
+
+        // And do save it!
+        return file_put_contents($filePath, $content);
+    }
+
+    /**
      * Writes data mapper skeleton file on the disk
      * 
      * @param string $module Module name
