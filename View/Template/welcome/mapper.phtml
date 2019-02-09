@@ -1,0 +1,49 @@
+<?php
+
+use Krystal\Form\Element;
+
+?>
+
+<h2 class="page-header"><?php $this->show('Generate data mapper skeleton'); ?></h2>
+
+<?php if ($flashBag->has('success')): ?>
+<div class="alert alert-success" role="alert"><i class="glyphicon glyphicon-ok"></i> <?php echo $flashBag->get('success'); ?></div>
+<?php endif; ?>
+
+<form class="form-horizontal" autocomplete="off">
+  <fieldset>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label"><?php $this->show('Module'); ?></label>
+      <div class="col-lg-10">
+        <?= Element::select('module', $modules, null, array('class' => 'form-control')); ?>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="inputSubject" class="col-lg-2 control-label"><?php $this->show('Database engine'); ?></label>
+      <div class="col-lg-10">
+        <?= Element::select('engine', $engines, null, array('class' => 'form-control')); ?>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="textArea" class="col-lg-2 control-label"><?php $this->show('Table name'); ?></label>
+      <div class="col-lg-10">
+        <?= Element::select('table', $tables, null, array('class' => 'form-control')); ?>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="textArea" class="col-lg-2 control-label"><?php $this->show('Mapper name'); ?></label>
+      <div class="col-lg-10">
+        <?= Element::text('mapper', null, array('class' => 'form-control', 'placeholder' => $this->translate('E.g BookMapper. If not provided, then it will be generated automatically'))); ?>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary"><?php $this->show('Generate'); ?></button>
+      </div>
+    </div>
+  </fieldset>
+</form>
