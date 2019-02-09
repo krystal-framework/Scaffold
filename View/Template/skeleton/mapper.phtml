@@ -1,0 +1,27 @@
+
+namespace <?= $module; ?>\Storage\<?= $engine; ?>;
+
+use Krystal\Db\Sql\AbstractMapper;
+
+final class <?= $mapper; ?> extends AbstractMapper
+{
+    /**
+     * {@inheritDoc}
+     */
+    public static function getTableName()
+    {
+        return self::getWithPrefix('<?= $table; ?>');
+    }
+<?php if (isset($pk)): ?>
+
+    /**
+     * Returns primary column name for current mapper
+     * 
+     * @return string
+     */
+    protected function getPk()
+    {
+        return '<?= $pk; ?>';
+    }
+<?php endif; ?>
+}
