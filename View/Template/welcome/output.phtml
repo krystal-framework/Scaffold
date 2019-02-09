@@ -1,0 +1,18 @@
+<?php
+
+use Krystal\Form\Element;
+
+?>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/zenburn.min.css" />
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<h2 class="page-header"><?php $this->show('Generated code'); ?></h2>
+
+<?php if ($flashBag->has('success')): ?>
+<div class="alert alert-success" role="alert"><i class="glyphicon glyphicon-ok"></i> <?php echo $flashBag->get('success'); ?></div>
+<?php endif; ?>
+
+<pre><code class="php"><?= $skeleton; ?></code></pre>
