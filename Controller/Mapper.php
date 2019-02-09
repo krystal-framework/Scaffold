@@ -23,7 +23,8 @@ final class Mapper extends AbstractController
 
         return $this->view->render('mapper', array(
             'engines' => MapperGenerator::getEngines(),
-            'modules' => MapperGenerator::parseModules($this->moduleManager->getLoadedModuleNames())
+            'modules' => MapperGenerator::parseModules($this->moduleManager->getLoadedModuleNames()),
+            'tables' => MapperGenerator::valuefy($this->db['mysql']->fetchAllTables())
         ));
     }
 
@@ -42,14 +43,6 @@ final class Mapper extends AbstractController
             'input' => array(
                 'source' => $input,
                 'definition' => array(
-                    'table' => array(
-                        'required' => true,
-                        'rules' => array(
-                            'NotEmpty' => array(
-                                'message' => 'Table name can not be blank'
-                            )
-                        )
-                    ),
                     'mapper' => array(
                         'required' => true,
                         'rules' => array(
