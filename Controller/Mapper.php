@@ -74,6 +74,11 @@ final class Mapper extends AbstractController
                 $input['pk'] = $pk;
             }
 
+            // If no mapper name provided, then do generate one
+            if (empty($input['mapper'])) {
+                $input['mapper'] = MapperGenerator::guessName($input['table']);
+            }
+
             $skeleton = $this->renderSkeleton('mapper', $input);
             
             $writer = new SkeletonWriter($this->appConfig->getModulesDir());
