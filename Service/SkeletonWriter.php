@@ -57,6 +57,35 @@ final class SkeletonWriter
     }
 
     /**
+     * Creates empty directoies inside a module
+     * 
+     * @param string $module Module name
+     * @return boolean
+     */
+    private function createModuleDirs($module)
+    {
+        // Directory to be created
+        $dirs = array(
+            'Assets',
+            'Config',
+            'Controller',
+            'Service',
+            'View/Template',
+            'Translations'
+        );
+        
+        foreach ($dirs as $dir) {
+            // Directory path to be created
+            $dirPath = sprintf('%s/%s/%s', $this->moduleDir, $module, $dir);
+
+            // Create it
+            FileManager::createDir($dirPath);
+        }
+
+        return true;
+    }
+
+    /**
      * Writes module content on the disk
      * 
      * @param string $module Module name
@@ -75,7 +104,7 @@ final class SkeletonWriter
         $filePath = sprintf('%s/Module.php', $dirPath);
 
         // And do save it!
-        return file_put_contents($filePath, $content);
+        return file_put_contents($filePath, $content) && $this->createModuleDirs($module);
     }
 
     /**
