@@ -16,9 +16,7 @@ abstract class AbstractController extends CoreController
      */
     final protected function renderSkeleton($template, array $vars = array())
     {
-        $out = $this->view->disableLayout()
-                          ->setTheme('skeleton')
-                          ->render($template, $vars);
+        $out = $this->view->renderRaw('Scaffold', 'skeleton', $template, $vars);
 
         return '<?php' . PHP_EOL . $out;
     }

@@ -7,6 +7,10 @@ return array(
     
     '/scaffold/mapper/generate' => array(
         'controller' => 'Mapper@generateAction'
+    ),
+
+    // Service generator
+    '/scaffold/service' => array(
+        'controller' => 'Service@indexAction'
     )
 );
-

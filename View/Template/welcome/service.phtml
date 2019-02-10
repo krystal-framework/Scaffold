@@ -1,0 +1,63 @@
+<?php
+
+use Krystal\Form\Element;
+
+?>
+
+<h2 class="page-header"><?php $this->show('Generate service object'); ?></h2>
+
+<?php if ($flashBag->has('success')): ?>
+<div class="alert alert-success" role="alert"><i class="glyphicon glyphicon-ok"></i> <?php echo $flashBag->get('success'); ?></div>
+<?php endif; ?>
+
+<form class="form-horizontal" autocomplete="off" method="<?= $ready && !empty($mappers) ? 'POST' : 'GET'; ?>">
+  <fieldset>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label"><?php $this->show('Module'); ?></label>
+      <div class="col-lg-10">
+        <?= Element::select('module', $modules, null, array('class' => 'form-control', 'disabled' => $ready)); ?>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputSubject" class="col-lg-2 control-label"><?php $this->show('Database engine'); ?></label>
+      <div class="col-lg-10">
+        <?= Element::select('engine', $engines, null, array('class' => 'form-control', 'disabled' => $ready)); ?>
+      </div>
+    </div>
+    
+    <?php if ($ready): ?>
+    
+    <?php if (is_array($mappers)): ?>
+    <div class="form-group">
+      <label for="textArea" class="col-lg-2 control-label"><?php $this->show('Mapper name'); ?></label>
+      <div class="col-lg-10">
+        <?= Element::select('mapper', $mappers, null, array('class' => 'form-control')); ?>
+      </div>
+    </div>
+    <?php else: ?>
+    
+    <div class="form-group">
+      <div class="col-lg-10">
+        <span class="text-danger">Looks like there are no available mappers</span>
+      </div>
+    </div>
+    
+    <?php endif; ?>
+    
+    <?php endif; ?>
+
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        
+        <?php if (!$ready || !empty($mappers)): ?>
+        <button type="submit" onclick="this.form.submit()" class="btn btn-primary"><?php $this->show('Generate'); ?></button>
+        <?php endif; ?>
+        
+        <?php if ($ready): ?>
+        <a href="<?= $this->url('Scaffold:Service@indexAction'); ?>" class="btn btn-danger"><?php $this->show('Go back'); ?></a>
+        <?php endif; ?>
+      </div>
+    </div>
+  </fieldset>
+</form>

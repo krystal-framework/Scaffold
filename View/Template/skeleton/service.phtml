@@ -1,0 +1,83 @@
+
+namespace <?= $module; ?>\Service;
+
+use Krystal\Application\Model\AbstractService;
+use Krystal\Stdlib\VirtualEntity;
+use <?= ltrim($mapperNs, '\\'); ?>;
+
+final class <?= $service; ?> extends AbstractService
+{
+    /**
+     * Any compliant mapper
+     * 
+     * @var <?= $mapperNs; ?>
+
+     */
+    private $<?= $mapperProperty; ?>
+
+
+    /**
+     * State initialization
+     * 
+     * @param <?= $mapperNs; ?> $<?= $mapperProperty; ?>
+     
+     * @return void
+     */
+    public function __construct(<?= $mapper; ?> $<?= $mapperProperty; ?>)
+    {
+        $this-><?= $mapperProperty; ?> = $<?= $mapperProperty; ?>;
+    }
+
+    /**
+     * Converts raw row into entity object
+     * 
+     * @return mixed
+     */
+    protected function toEntity(array $row)
+    {
+        return false;
+    }
+
+    /**
+     * Fetch all records
+     * 
+     * @return array
+     */
+    public function fetchAll()
+    {
+        return $this-><?= $mapperProperty; ?>->fetchAll();
+    }
+
+    /**
+     * Fetch single record by its id
+     * 
+     * @param int $id Record id
+     * @return mixed
+     */
+    public function fetchById($id)
+    {
+        return $this-><?= $mapperProperty; ?>->findByPk($id);
+    }
+
+    /**
+     * Deletes a record by its id
+     * 
+     * @param int $id Record id
+     * @return boolean
+     */
+    public function deleteById($id)
+    {
+        return $this-><?= $mapperProperty; ?>->deleteByPk($id);
+    }
+
+    /**
+     * Persists (i.e saves or updates) a record
+     * 
+     * @param array $input Request data
+     * @return boolean
+     */
+    public function save(array $input)
+    {
+        return $this-><?= $mapperProperty; ?>->persist($input);
+    }
+}
