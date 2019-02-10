@@ -4,7 +4,11 @@ return array(
     '/scaffold' => array(
         'controller' => 'Scaffold@indexAction'
     ),
-    
+
+    '/scaffold/module' => array(
+        'controller' => 'Module@indexAction'
+    ),
+
     '/scaffold/mapper' => array(
         'controller' => 'Mapper@indexAction'
     ),
