@@ -57,6 +57,28 @@ final class SkeletonWriter
     }
 
     /**
+     * Writes controller skeleton file on the disk
+     * 
+     * @param string $module Module name
+     * @param string $controller Controller class name
+     * @param string $content Skeleton content (i.e genrated PHP code)
+     * @return boolean
+     */
+    public function saveController($module, $controller, $content)
+    {
+        $dirPath = sprintf('%s/%s/Controller', $this->moduleDir, $module);
+
+        // Create directory if one doesn't exist
+        FileManager::createDir($dirPath);
+
+        // Generate file path
+        $filePath = sprintf('%s/%s.php', $dirPath, $controller);
+
+        // And do save it!
+        return file_put_contents($filePath, $content);
+    }
+
+    /**
      * Writes service skeleton file on the disk
      * 
      * @param string $module Module name
