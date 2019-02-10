@@ -4,6 +4,12 @@
 
 <div class="row">
     <div class="col-lg-3">
+        <h4><?php $this->show('Module'); ?></h4>
+        <p>A module is a container of controllers, routes, mappers and services for particular task</p>
+        <p><a class="btn btn-primary btn-lg" href="<?= $this->url('Scaffold:Module@indexAction'); ?>"><?php $this->show('Generate'); ?></a></p>
+    </div>
+
+    <div class="col-lg-3">
         <h4><?php $this->show('Mapper'); ?></h4>
         <p>A mapper encapsulates common operations on a single table</p>
         <p><a class="btn btn-primary btn-lg" href="<?= $this->url('Scaffold:Mapper@indexAction'); ?>"><?php $this->show('Generate'); ?></a></p>
