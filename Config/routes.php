@@ -1,6 +1,10 @@
 <?php
 
 return array(
+    '/scaffold' => array(
+        'controller' => 'Scaffold@indexAction'
+    ),
+    
     '/scaffold/mapper' => array(
         'controller' => 'Mapper@indexAction'
     ),
