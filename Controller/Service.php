@@ -11,7 +11,6 @@
 
 namespace Scaffold\Controller;
 
-use Scaffold\Service\MapperGenerator;
 use Scaffold\Service\SkeletonWriter;
 
 /**
@@ -38,9 +37,9 @@ final class Service extends AbstractController
         $mappers = $ready ? $writer->getMappers($this->request->getQuery('module'), $this->request->getQuery('engine')) : array();
 
         return $this->view->render('service', array(
-            'modules' => MapperGenerator::parseModules($this->moduleManager->getLoadedModuleNames()),
+            'modules' => SkeletonWriter::parseModules($this->moduleManager->getLoadedModuleNames()),
+            'engines' => SkeletonWriter::getEngines(),
             'mappers' => $mappers,
-            'engines' => MapperGenerator::getEngines(),
             'ready' => $ready
         ));
     }
@@ -56,9 +55,9 @@ final class Service extends AbstractController
 
         // Append generated variables
         $input['mapperNs'] = $input['mapper'];
-        $input['service'] = MapperGenerator::guessServiceName($input['mapperNs']);
-        $input['mapperProperty'] = MapperGenerator::guessMapperPropertyName($input['mapperNs']);
-        $input['mapper'] = MapperGenerator::extractMapperFromNs($input['mapperNs']);
+        $input['service'] = SkeletonWriter::guessServiceName($input['mapperNs']);
+        $input['mapperProperty'] = SkeletonWriter::guessMapperPropertyName($input['mapperNs']);
+        $input['mapper'] = SkeletonWriter::extractMapperFromNs($input['mapperNs']);
         
         $skeleton = $this->renderSkeleton('service', $input);
 

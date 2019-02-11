@@ -11,7 +11,6 @@
 
 namespace Scaffold\Controller;
 
-use Scaffold\Service\MapperGenerator;
 use Scaffold\Service\SkeletonWriter;
 
 /**
@@ -31,7 +30,7 @@ final class Controller extends AbstractController
         }
 
         return $this->view->render('controller', array(
-            'modules' => MapperGenerator::parseModules($this->moduleManager->getLoadedModuleNames()),
+            'modules' => SkeletonWriter::parseModules($this->moduleManager->getLoadedModuleNames()),
         ));
     }
 
