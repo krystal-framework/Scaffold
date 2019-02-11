@@ -1,29 +1,16 @@
 
-<h2 class="page-header">Welcome to code generator</h2>
-<p><small>This tool can help you to generate common code templates</small></p>
+<h2 class="page-header"><?php $this->show('Welcome to code generator'); ?></h2>
+<p><small><?php $this->show('This tool can help you to generate common code templates'); ?></small></p>
 
 <div class="row">
+    <?php foreach ($items as $item): ?>
     <div class="col-lg-3">
-        <h4><?php $this->show('Module'); ?></h4>
-        <p>A module is a container of controllers, routes, mappers and services for particular task</p>
-        <p><a class="btn btn-primary btn-lg" href="<?= $this->url('Scaffold:Module@indexAction'); ?>"><?php $this->show('Generate'); ?></a></p>
-    </div>
+        <h4><?php $this->show($item['name']); ?></h4>
 
-    <div class="col-lg-3">
-        <h4><?php $this->show('Mapper'); ?></h4>
-        <p>A mapper encapsulates common operations on a single table</p>
-        <p><a class="btn btn-primary btn-lg" href="<?= $this->url('Scaffold:Mapper@indexAction'); ?>"><?php $this->show('Generate'); ?></a></p>
+        <p><?php $this->show($item['description']); ?></p>
+        <p>
+            <a class="btn btn-primary btn-lg" href="<?= $this->url($item['route']); ?>"><?php $this->show('Generate'); ?></a>
+        </p>
     </div>
-
-    <div class="col-lg-3">
-        <h4><?php $this->show('Service'); ?></h4>
-        <p>In MVC, a service is a bridge between data mapper and domain object (if any)</p>
-        <p><a class="btn btn-primary btn-lg" href="<?= $this->url('Scaffold:Service@indexAction'); ?>"><?php $this->show('Generate'); ?></a></p>
-    </div>
-
-    <div class="col-lg-3">
-        <h4><?php $this->show('Controller'); ?></h4>
-        <p>A controller responds to route matches</p>
-        <p><a class="btn btn-primary btn-lg" href="<?= $this->url('Scaffold:Controller@indexAction'); ?>"><?php $this->show('Generate'); ?></a></p>
-    </div>
+    <?php endforeach; ?>
 </div>
