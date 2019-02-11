@@ -11,7 +11,7 @@
 
 namespace Scaffold\Controller;
 
-use Scaffold\Service\SkeletonWriter;
+use Scaffold\Service\SkeletonService;
 
 /**
  * This controller is responsible for controller generation
@@ -30,7 +30,7 @@ final class Controller extends AbstractController
         }
 
         return $this->view->render('controller', array(
-            'modules' => SkeletonWriter::parseModules($this->moduleManager->getLoadedModuleNames()),
+            'modules' => SkeletonService::parseModules($this->moduleManager->getLoadedModuleNames()),
         ));
     }
 
@@ -45,7 +45,7 @@ final class Controller extends AbstractController
 
         $skeleton = $this->renderSkeleton('controller', $input);
 
-        $writer = new SkeletonWriter($this->appConfig->getModulesDir());
+        $writer = new SkeletonService($this->appConfig->getModulesDir());
         $writer->saveController($input['module'], $input['controller'], $skeleton);
 
         return $this->view->render('output', array(

@@ -11,7 +11,7 @@
 
 namespace Scaffold\Controller;
 
-use Scaffold\Service\SkeletonWriter;
+use Scaffold\Service\SkeletonService;
 
 /**
  * This controller is responsible for service generation
@@ -27,7 +27,7 @@ final class Service extends AbstractController
     {
         $ready = $this->request->hasQuery('module', 'engine');
 
-        $writer = new SkeletonWriter($this->appConfig->getModulesDir());
+        $writer = new SkeletonService($this->appConfig->getModulesDir());
 
         if ($this->request->isPost()) {
             return $this->generateAction();
@@ -37,8 +37,8 @@ final class Service extends AbstractController
         $mappers = $ready ? $writer->getMappers($this->request->getQuery('module'), $this->request->getQuery('engine')) : array();
 
         return $this->view->render('service', array(
-            'modules' => SkeletonWriter::parseModules($this->moduleManager->getLoadedModuleNames()),
-            'engines' => SkeletonWriter::getEngines(),
+            'modules' => SkeletonService::parseModules($this->moduleManager->getLoadedModuleNames()),
+            'engines' => SkeletonService::getEngines(),
             'mappers' => $mappers,
             'ready' => $ready
         ));
@@ -55,15 +55,15 @@ final class Service extends AbstractController
 
         // Append generated variables
         $input['mapperNs'] = $input['mapper'];
-        $input['service'] = SkeletonWriter::guessServiceName($input['mapperNs']);
-        $input['mapperProperty'] = SkeletonWriter::guessMapperPropertyName($input['mapperNs']);
-        $input['mapper'] = SkeletonWriter::extractMapperFromNs($input['mapperNs']);
+        $input['service'] = SkeletonService::guessServiceName($input['mapperNs']);
+        $input['mapperProperty'] = SkeletonService::guessMapperPropertyName($input['mapperNs']);
+        $input['mapper'] = SkeletonService::extractMapperFromNs($input['mapperNs']);
         
         $skeleton = $this->renderSkeleton('service', $input);
 
         $this->flashBag->set('success', 'Service object has been successfully generated');
 
-        $writer = new SkeletonWriter($this->appConfig->getModulesDir());
+        $writer = new SkeletonService($this->appConfig->getModulesDir());
         $writer->saveService($input['module'], $input['service'], $skeleton);
 
         return $this->view->render('output', array(

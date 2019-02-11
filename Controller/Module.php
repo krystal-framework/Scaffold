@@ -11,7 +11,7 @@
 
 namespace Scaffold\Controller;
 
-use Scaffold\Service\SkeletonWriter;
+use Scaffold\Service\SkeletonService;
 
 /* This class is responsible for module generation */
 final class Module extends AbstractController
@@ -41,7 +41,7 @@ final class Module extends AbstractController
 
         $skeleton = $this->renderSkeleton('module', $input);
 
-        $writer = new SkeletonWriter($this->appConfig->getModulesDir());
+        $writer = new SkeletonService($this->appConfig->getModulesDir());
         $writer->saveModule($input['module'], $skeleton);
 
         $this->flashBag->set('success', sprintf('Module "%s" has been successfully generated!', $input['module']));

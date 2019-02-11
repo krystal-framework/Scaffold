@@ -11,7 +11,7 @@
 
 namespace Scaffold\Controller;
 
-use Scaffold\Service\SkeletonWriter;
+use Scaffold\Service\SkeletonService;
 
 /**
  * This controller is responsible for data mapper generation
@@ -40,9 +40,9 @@ final class Mapper extends AbstractController
         }
 
         return $this->view->render('mapper', array(
-            'engines' => SkeletonWriter::getEngines(),
-            'modules' => SkeletonWriter::parseModules($this->moduleManager->getLoadedModuleNames()),
-            'tables' => SkeletonWriter::valuefy($this->getConnection()->fetchAllTables())
+            'engines' => SkeletonService::getEngines(),
+            'modules' => SkeletonService::parseModules($this->moduleManager->getLoadedModuleNames()),
+            'tables' => SkeletonService::valuefy($this->getConnection()->fetchAllTables())
         ));
     }
 
@@ -84,12 +84,12 @@ final class Mapper extends AbstractController
 
             // If no mapper name provided, then do generate one
             if (empty($input['mapper'])) {
-                $input['mapper'] = SkeletonWriter::guessName($input['table']);
+                $input['mapper'] = SkeletonService::guessName($input['table']);
             }
 
             $skeleton = $this->renderSkeleton('mapper', $input);
 
-            $writer = new SkeletonWriter($this->appConfig->getModulesDir());
+            $writer = new SkeletonService($this->appConfig->getModulesDir());
             $writer->saveMapper($input['module'], $input['engine'], $input['mapper'], $skeleton);
 
             $this->flashBag->set('success', sprintf('%s has been successfull generated!', $input['mapper']));

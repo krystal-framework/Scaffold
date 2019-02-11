@@ -11,12 +11,12 @@
 
 namespace Scaffold\Service;
 
-use Krystal\Filesystem\FileManager;
 use Scaffold\Collection\StorageCollection;
+use Krystal\Filesystem\FileManager;
 use Krystal\Stdlib\ArrayUtils;
 use Krystal\Text\TextUtils;
 
-final class SkeletonWriter
+final class SkeletonService
 {
     /**
      * Module directory
