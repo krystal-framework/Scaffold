@@ -86,6 +86,26 @@ final class SkeletonWriter
     }
 
     /**
+     * Writes file on the disk
+     * 
+     * @param string $dirPath
+     * @param string $file File name
+     * @param string $content Skeleton content (i.e genrated PHP code)
+     * @return boolean
+     */
+    private function writeFile($dirPath, $file, $content)
+    {
+        // Create directory if one doesn't exist
+        FileManager::createDir($dirPath);
+
+        // Generate file path
+        $filePath = sprintf('%s/%s.php', $dirPath, $file);
+
+        // And do save it!
+        return file_put_contents($filePath, $content);
+    }
+
+    /**
      * Writes module content on the disk
      * 
      * @param string $module Module name
@@ -94,17 +114,9 @@ final class SkeletonWriter
      */
     public function saveModule($module, $content)
     {
-        // Directory path
         $dirPath = sprintf('%s/%s', $this->moduleDir, $module);
 
-        // Create directory if one doesn't exist
-        FileManager::createDir($dirPath);
-
-        // Generate file path
-        $filePath = sprintf('%s/Module.php', $dirPath);
-
-        // And do save it!
-        return file_put_contents($filePath, $content) && $this->createModuleDirs($module);
+        return $this->writeFile($dirPath, 'Module', $content) && $this->createModuleDirs($module);
     }
 
     /**
@@ -119,14 +131,7 @@ final class SkeletonWriter
     {
         $dirPath = sprintf('%s/%s/Controller', $this->moduleDir, $module);
 
-        // Create directory if one doesn't exist
-        FileManager::createDir($dirPath);
-
-        // Generate file path
-        $filePath = sprintf('%s/%s.php', $dirPath, $controller);
-
-        // And do save it!
-        return file_put_contents($filePath, $content);
+        return $this->writeFile($dirPath, $controller, $content);
     }
 
     /**
@@ -141,14 +146,7 @@ final class SkeletonWriter
     {
         $dirPath = sprintf('%s/%s/Service', $this->moduleDir, $module);
 
-        // Create directory if one doesn't exist
-        FileManager::createDir($dirPath);
-
-        // Generate file path
-        $filePath = sprintf('%s/%s.php', $dirPath, $service);
-
-        // And do save it!
-        return file_put_contents($filePath, $content);
+        return $this->writeFile($dirPath, $service, $content);
     }
 
     /**
@@ -162,16 +160,8 @@ final class SkeletonWriter
      */
     public function saveMapper($module, $engine, $mapper, $content)
     {
-        // Directory path
         $dirPath = sprintf('%s/%s/Storage/%s', $this->moduleDir, $module, $engine);
 
-        // Create directory if one doesn't exist
-        FileManager::createDir($dirPath);
-
-        // Generate file path
-        $filePath = sprintf('%s/%s.php', $dirPath, $mapper);
-
-        // And do save it!
-        return file_put_contents($filePath, $content);
+        return $this->writeFile($dirPath, $mapper, $content);
     }
 }
