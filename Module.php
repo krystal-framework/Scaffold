@@ -13,7 +13,14 @@ final class Module extends AbstractModule
      */
     public function getRoutes()
     {
-        return include(__DIR__) . '/Config/routes.php';
+        $request = $this->getServiceLocator()->get('request');
+
+        // Make it only work only on local machine
+        if ($request->isLocal()) {
+            return include(__DIR__) . '/Config/routes.php';
+        }
+
+        return array();
     }
 
     /**
