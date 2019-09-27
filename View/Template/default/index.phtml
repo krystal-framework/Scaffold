@@ -5,12 +5,14 @@
 <div class="row">
     <?php foreach ($items as $item): ?>
     <div class="col-lg-3">
-        <h4><?php $this->show($item['name']); ?></h4>
+        <div class="scaffold-item">
+            <h4><?php $this->show($item['name']); ?></h4>
 
-        <p><?php $this->show($item['description']); ?></p>
-        <p>
-            <a class="btn btn-primary btn-lg" href="<?= $this->url($item['route']); ?>"><?php $this->show('Generate'); ?></a>
-        </p>
+            <p><?php $this->show($item['description']); ?></p>
+            <p>
+                <a class="btn btn-primary btn-lg" href="<?= $this->url($item['route']); ?>"><?php $this->show('Generate'); ?></a>
+            </p>
+        </div>
     </div>
     <?php endforeach; ?>
 </div>

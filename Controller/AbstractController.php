@@ -17,6 +17,27 @@ use Krystal\Validate\Renderer;
 abstract class AbstractController extends CoreController
 {
     /**
+     * Global stylesheet files
+     * 
+     * @var array
+     */
+    private $stylesheets = array(
+        '@Site/bootstrap-4/css/bootstrap.min.css',
+        '@Site/styles.css'
+    );
+
+    /**
+     * Global scripts
+     * 
+     * @var array
+     */
+    private $scripts = array(
+        '@Site/jquery-3.3.1.min.js',
+        '@Site/bootstrap-4/js/bootstrap.min.js',
+        '@Site/krystal.jquery.js'
+    );
+
+    /**
      * Renders a skeleton
      * 
      * @param string $template Skeleton template
@@ -45,17 +66,10 @@ abstract class AbstractController extends CoreController
                    ->addPartialDir($this->view->createThemePath('Site', $this->appConfig->getTheme()).'/partials/');
 
         // Append required assets
-        $this->view->getPluginBag()->appendStylesheets(array(
-            '@Site/bootstrap/css/bootstrap.min.css',
-            '@Site/styles.css'
-        ));
+        $this->view->getPluginBag()->appendStylesheets($this->stylesheets);
 
         // Append required script paths
-        $this->view->getPluginBag()->appendScripts(array(
-            '@Site/jquery.min.js',
-            '@Site/bootstrap/js/bootstrap.min.js',
-            '@Site/krystal.jquery.js'
-        ));
+        $this->view->getPluginBag()->appendScripts($this->scripts);
 
         // Add shared variables
         $this->view->addVariables(array(
