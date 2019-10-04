@@ -136,11 +136,14 @@ final class SkeletonService
             $mappers = FileManager::getDirTree($dirPath);
 
             foreach ($mappers as $file) {
-                $fileName = FileManager::getFileName($file);
+                // Filter by PHP files
+                if (FileManager::hasExtension($file, array('php'))) {
+                    $fileName = FileManager::getFileName($file);
 
-                // Mapper's namespace
-                $ns = sprintf('\%s\Storage\%s\%s', $module, $engine, $fileName);
-                $output[$ns] = $fileName;
+                    // Mapper's namespace
+                    $ns = sprintf('\%s\Storage\%s\%s', $module, $engine, $fileName);
+                    $output[$ns] = $fileName;
+                }
             }
 
             return $output;
