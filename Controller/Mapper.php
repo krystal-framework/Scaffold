@@ -56,48 +56,25 @@ final class Mapper extends AbstractController
         // Request input data
         $input = $this->request->getPost();
 
-        // Build form validator
-        $formValudator = $this->createValidator(array(
-            'input' => array(
-                'source' => $input,
-                'definition' => array(
-                    'mapper' => array(
-                        'required' => true,
-                        'rules' => array(
-                            'NotEmpty' => array(
-                                'message' => 'Mapper name can not be blank'
-                            )
-                        )
-                    )
-                )
-            )
-        ));
+        // Try to get a PK out of table
+        $pk = $this->getConnection()->getPrimaryKey($input['table']);
 
-        if ($formValudator->isValid()) {
-            // Try to get a PK out of table
-            $pk = $this->getConnection()->getPrimaryKey($input['table']);
-
-            // Append PK if available
-            if ($pk !== false) {
-                $input['pk'] = $pk;
-            }
-
-            // If no mapper name provided, then do generate one
-            if (empty($input['mapper'])) {
-                $input['mapper'] = SkeletonService::guessName($input['table']);
-            }
-
-            $skeleton = $this->renderSkeleton('mapper', $input);
-
-            $writer = new SkeletonService($this->appConfig->getModulesDir());
-            $writer->saveMapper($input['module'], $input['engine'], $input['mapper'], $skeleton);
-
-            $this->flashBag->set('success', sprintf('%s has been successfull generated!', $input['mapper']));
-            return 1;
-
-        } else {
-            return $formValudator->getErrors();
+        // Append PK if available
+        if ($pk !== false) {
+            $input['pk'] = $pk;
         }
-        
+
+        // If no mapper name provided, then do generate one
+        if (empty($input['mapper'])) {
+            $input['mapper'] = SkeletonService::guessName($input['table']);
+        }
+
+        $skeleton = $this->renderSkeleton('mapper', $input);
+
+        $writer = new SkeletonService($this->appConfig->getModulesDir());
+        $writer->saveMapper($input['module'], $input['engine'], $input['mapper'], $skeleton);
+
+        $this->flashBag->set('success', sprintf('%s has been successfull generated!', $input['mapper']));
+        return 1;
     }
 }
