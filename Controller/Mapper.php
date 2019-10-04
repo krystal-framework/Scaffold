@@ -74,7 +74,7 @@ final class Mapper extends AbstractController
         $writer = new SkeletonService($this->appConfig->getModulesDir());
         $writer->saveMapper($input['module'], $input['engine'], $input['mapper'], $skeleton);
 
-        $this->flashBag->set('success', sprintf('%s has been successfull generated!', $input['mapper']));
+        $this->flashBag->set('success', sprintf('%s has been successfully generated!', $input['mapper']));
         return 1;
     }
 }
