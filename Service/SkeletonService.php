@@ -151,7 +151,7 @@ final class SkeletonService
     }
 
     /**
-     * Creates empty directoies inside a module
+     * Creates empty directories inside a module
      * 
      * @param string $module Module name
      * @return boolean
@@ -184,7 +184,7 @@ final class SkeletonService
      * 
      * @param string $dirPath
      * @param string $file File name
-     * @param string $content Skeleton content (i.e genrated PHP code)
+     * @param string $content Skeleton content (i.e generated PHP code)
      * @return boolean
      */
     private function writeFile($dirPath, $file, $content)
@@ -203,7 +203,7 @@ final class SkeletonService
      * Writes module content on the disk
      * 
      * @param string $module Module name
-     * @param string $content Skeleton content (i.e genrated PHP code)
+     * @param string $content Skeleton content (i.e generated PHP code)
      * @return boolean
      */
     public function saveModule($module, $content)
@@ -218,7 +218,7 @@ final class SkeletonService
      * 
      * @param string $module Module name
      * @param string $controller Controller class name
-     * @param string $content Skeleton content (i.e genrated PHP code)
+     * @param string $content Skeleton content (i.e generated PHP code)
      * @return boolean
      */
     public function saveController($module, $controller, $content)
@@ -233,7 +233,7 @@ final class SkeletonService
      * 
      * @param string $module Module name
      * @param string $service Service class name (without NS)
-     * @param string $content Skeleton content (i.e genrated PHP code)
+     * @param string $content Skeleton content (i.e generated PHP code)
      * @return boolean
      */
     public function saveService($module, $service, $content)
@@ -249,7 +249,7 @@ final class SkeletonService
      * @param string $module Module name
      * @param string $engine Database engine name (MySQL, Memory, etc)
      * @param string $mapper Mapper name
-     * @param string $content Skeleton content (i.e genrated PHP code)
+     * @param string $content Skeleton content (i.e generated PHP code)
      * @return boolean Depending on write success
      */
     public function saveMapper($module, $engine, $mapper, $content)
