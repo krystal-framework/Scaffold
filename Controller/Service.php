@@ -63,8 +63,10 @@ final class Service extends AbstractController
 
         $this->flashBag->set('success', 'Service object has been successfully generated');
 
-        $writer = new SkeletonService($this->appConfig->getModulesDir());
-        $writer->saveService($input['module'], $input['service'], $skeleton);
+        if (!empty($input['module']) && !empty($input['service'])){
+            $writer = new SkeletonService($this->appConfig->getModulesDir());
+            $writer->saveService($input['module'], $input['service'], $skeleton);
+        }
 
         return $this->view->render('output', array(
             'skeleton' => htmlentities($skeleton)
